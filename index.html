@@ -1,0 +1,877 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>JS_2.md</title>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+
+<style>
+/* https://github.com/microsoft/vscode/blob/master/extensions/markdown-language-features/media/markdown.css */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+body {
+	font-family: var(--vscode-markdown-font-family, -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif);
+	font-size: var(--vscode-markdown-font-size, 14px);
+	padding: 0 26px;
+	line-height: var(--vscode-markdown-line-height, 22px);
+	word-wrap: break-word;
+}
+
+#code-csp-warning {
+	position: fixed;
+	top: 0;
+	right: 0;
+	color: white;
+	margin: 16px;
+	text-align: center;
+	font-size: 12px;
+	font-family: sans-serif;
+	background-color:#444444;
+	cursor: pointer;
+	padding: 6px;
+	box-shadow: 1px 1px 1px rgba(0,0,0,.25);
+}
+
+#code-csp-warning:hover {
+	text-decoration: none;
+	background-color:#007acc;
+	box-shadow: 2px 2px 2px rgba(0,0,0,.25);
+}
+
+body.scrollBeyondLastLine {
+	margin-bottom: calc(100vh - 22px);
+}
+
+body.showEditorSelection .code-line {
+	position: relative;
+}
+
+body.showEditorSelection .code-active-line:before,
+body.showEditorSelection .code-line:hover:before {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 0;
+	left: -12px;
+	height: 100%;
+}
+
+body.showEditorSelection li.code-active-line:before,
+body.showEditorSelection li.code-line:hover:before {
+	left: -30px;
+}
+
+.vscode-light.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.15);
+}
+
+.vscode-light.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.40);
+}
+
+.vscode-light.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-dark.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.4);
+}
+
+.vscode-dark.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.60);
+}
+
+.vscode-dark.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-high-contrast.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 160, 0, 0.7);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 160, 0, 1);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+img {
+	max-width: 100%;
+	max-height: 100%;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+a:focus,
+input:focus,
+select:focus,
+textarea:focus {
+	outline: 1px solid -webkit-focus-ring-color;
+	outline-offset: -1px;
+}
+
+hr {
+	border: 0;
+	height: 2px;
+	border-bottom: 2px solid;
+}
+
+h1 {
+	padding-bottom: 0.3em;
+	line-height: 1.2;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+}
+
+h1, h2, h3 {
+	font-weight: normal;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+table > thead > tr > th {
+	text-align: left;
+	border-bottom: 1px solid;
+}
+
+table > thead > tr > th,
+table > thead > tr > td,
+table > tbody > tr > th,
+table > tbody > tr > td {
+	padding: 5px 10px;
+}
+
+table > tbody > tr + tr > td {
+	border-top: 1px solid;
+}
+
+blockquote {
+	margin: 0 7px 0 5px;
+	padding: 0 16px 0 10px;
+	border-left-width: 5px;
+	border-left-style: solid;
+}
+
+code {
+	font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback";
+	font-size: 1em;
+	line-height: 1.357em;
+}
+
+body.wordWrap pre {
+	white-space: pre-wrap;
+}
+
+pre:not(.hljs),
+pre.hljs code > div {
+	padding: 16px;
+	border-radius: 3px;
+	overflow: auto;
+}
+
+pre code {
+	color: var(--vscode-editor-foreground);
+	tab-size: 4;
+}
+
+/** Theming */
+
+.vscode-light pre {
+	background-color: rgba(220, 220, 220, 0.4);
+}
+
+.vscode-dark pre {
+	background-color: rgba(10, 10, 10, 0.4);
+}
+
+.vscode-high-contrast pre {
+	background-color: rgb(0, 0, 0);
+}
+
+.vscode-high-contrast h1 {
+	border-color: rgb(0, 0, 0);
+}
+
+.vscode-light table > thead > tr > th {
+	border-color: rgba(0, 0, 0, 0.69);
+}
+
+.vscode-dark table > thead > tr > th {
+	border-color: rgba(255, 255, 255, 0.69);
+}
+
+.vscode-light h1,
+.vscode-light hr,
+.vscode-light table > tbody > tr + tr > td {
+	border-color: rgba(0, 0, 0, 0.18);
+}
+
+.vscode-dark h1,
+.vscode-dark hr,
+.vscode-dark table > tbody > tr + tr > td {
+	border-color: rgba(255, 255, 255, 0.18);
+}
+
+</style>
+
+<style>
+/* Tomorrow Theme */
+/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+/* Original theme - https://github.com/chriskempson/tomorrow-theme */
+
+/* Tomorrow Comment */
+.hljs-comment,
+.hljs-quote {
+	color: #8e908c;
+}
+
+/* Tomorrow Red */
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-regexp,
+.hljs-deletion {
+	color: #c82829;
+}
+
+/* Tomorrow Orange */
+.hljs-number,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-literal,
+.hljs-type,
+.hljs-params,
+.hljs-meta,
+.hljs-link {
+	color: #f5871f;
+}
+
+/* Tomorrow Yellow */
+.hljs-attribute {
+	color: #eab700;
+}
+
+/* Tomorrow Green */
+.hljs-string,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition {
+	color: #718c00;
+}
+
+/* Tomorrow Blue */
+.hljs-title,
+.hljs-section {
+	color: #4271ae;
+}
+
+/* Tomorrow Purple */
+.hljs-keyword,
+.hljs-selector-tag {
+	color: #8959a8;
+}
+
+.hljs {
+	display: block;
+	overflow-x: auto;
+	color: #4d4d4c;
+	padding: 0.5em;
+}
+
+.hljs-emphasis {
+	font-style: italic;
+}
+
+.hljs-strong {
+	font-weight: bold;
+}
+</style>
+
+<style>
+/*
+ * Markdown PDF CSS
+ */
+
+ body {
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif, "Meiryo";
+	padding: 0 12px;
+}
+
+pre {
+	background-color: #f8f8f8;
+	border: 1px solid #cccccc;
+	border-radius: 3px;
+	overflow-x: auto;
+	white-space: pre-wrap;
+	overflow-wrap: break-word;
+}
+
+pre:not(.hljs) {
+	padding: 23px;
+	line-height: 19px;
+}
+
+blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.emoji {
+	height: 1.4em;
+}
+
+code {
+	font-size: 14px;
+	line-height: 19px;
+}
+
+/* for inline code */
+:not(pre):not(.hljs) > code {
+	color: #C9AE75; /* Change the old color so it seems less like an error */
+	font-size: inherit;
+}
+
+/* Page Break : use <div class="page"/> to insert page break
+-------------------------------------------------------- */
+.page {
+	page-break-after: always;
+}
+
+</style>
+
+<script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+</head>
+<body>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: document.body.classList.contains('vscode-dark') || document.body.classList.contains('vscode-high-contrast')
+          ? 'dark'
+          : 'default'
+    });
+  </script>
+<h1 id="1-%E6%9D%A1%E4%BB%B6%E5%88%86%E5%B2%90">1. 条件分岐</h1>
+<h2 id="%E2%97%86-%E5%89%8D%E5%9B%9E%E3%81%AE%E3%81%8A%E3%81%95%E3%82%89%E3%81%84">◆ 前回のおさらい</h2>
+<blockquote>
+<p>・文字列や数値、真偽値などの型<br>
+・「+」「-」「/」「*」「&gt;」「&lt;=」「&amp;&amp;」 などの演算子<br>
+・初期化と再代入<br>
+・if 文<br></p>
+</blockquote>
+<p>第 1 章では if 文の復習と、その他の条件分岐について学習して行きましょう。</p>
+<h2 id="%E2%97%86if-%E6%96%87">◆if 文</h2>
+<p>if 文は、条件式が True の時の処理や、False の時に実行する処理を指定できます。</p>
+<img src="if_chart.png"> 
+<br><br>
+<p>上記の図は、以下のコードで記述できます。</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">const</span> wallet = <span class="hljs-number">100</span>;
+price = <span class="hljs-number">90</span>;
+
+<span class="hljs-keyword">if</span> (wallet &gt;= price) {
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"buy"</span>);
+} <span class="hljs-keyword">else</span> {
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"missing"</span>);
+}
+</div></code></pre>
+<br>
+<p>それでは、上記のコードを記述していきましょう。<br>
+今回もオンラインエディタ<mark>Runstant</mark>を使っていきます。</p>
+<blockquote>
+<p><a href="http://lite.runstant.com/" target="_blank">Runstant</a></p>
+</blockquote>
+<br>
+<div style="height:12px;">
+<span style="margin-left:8px; padding:6px 10px; background:lightgreen; color:black; font-weight:bold;border-radius:5px;-webkit-border-radius:5px;-moz-border-radius:5px;">演習 1-1</span>
+</div>
+<div style="border:2px solid lightgreen; padding:25px 12px 10px; font-size:0.85em;border-radius:5px;-webkit-border-radius:5px;-moz-border-radius:5px;">
+上記のコードを記述し、処理を実行しましょう。 <br>
+また、priceの金額を変更し、else以下の処理を実行させましょう。
+</div>
+<br>
+<h2 id="%E2%97%86switch-%E6%96%87">◆switch 文</h2>
+<p>switcht 文は、条件の値毎に実行処理を記述します。<br>
+値は<mark>case</mark>で場合分けし、一致した case に紐づく処理を言実行します。<br>
+以下、記述方法を記載します。</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">let</span> plan = <span class="hljs-string">"B"</span>;
+
+<span class="hljs-keyword">switch</span> (plan) {
+  <span class="hljs-keyword">case</span> <span class="hljs-string">"A"</span>:
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"travel to Waikiki"</span>);
+    <span class="hljs-keyword">break</span>;
+  <span class="hljs-keyword">case</span> <span class="hljs-string">"B"</span>:
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"travel to Bali"</span>);
+    <span class="hljs-keyword">break</span>;
+  <span class="hljs-keyword">case</span> <span class="hljs-string">"C"</span>:
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"travel to Naha"</span>);
+    <span class="hljs-keyword">break</span>;
+  <span class="hljs-keyword">default</span>:
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"plan is nothing"</span>);
+}
+</div></code></pre>
+<p>上記コードですが、まず switch の後ろに条件を記述し、条件の結果を case で場合分けします。<br>
+今回は変数 plan を設定し、plan の結果(値)によって場合分けしています。</p>
+<p>case の後ろは<mark>条件式の値 + コロン</mark>、その後ろは実行処理を記述します。<br>
+実行処理の後は <mark>break</mark>を記述し、switich 文から離脱させます。<br>
+最後に各 case に当てはまらない結果を default で処理します。</p>
+<br>
+<div style="height:12px;">
+<span style="margin-left:8px; padding:6px 10px; background:lightgreen; color:black; font-weight:bold;border-radius:5px;-webkit-border-radius:5px;-moz-border-radius:5px;">演習 1-2</span>
+</div>
+<div style="border:2px solid lightgreen; padding:25px 12px 10px; font-size:0.85em;border-radius:5px;-webkit-border-radius:5px;-moz-border-radius:5px;">
+上記のコードを記述し、処理を実行しましょう。 <br>
+また、planの値を変更し、defaultの処理を実行させましょう。
+</div>
+<br>
+<h2 id="%E2%97%86-%E4%B8%89%E9%A0%85%E6%BC%94%E7%AE%97%E5%AD%90">◆ 三項演算子</h2>
+<p>三項演算子とは、if 文のショートカットとして用いられる条件演算子です。<br>
+短い記述で条件の場合分けが可能です。</p>
+<pre class="hljs"><code><div>条件式 ? 処理<span class="hljs-number">1</span> : 処理<span class="hljs-number">2</span>;
+</div></code></pre>
+<p>上記の条件式が True の場合は処理 1 が、False の場合は処理 2 が実行されます。</p>
+<pre class="hljs"><code><div>age = <span class="hljs-number">20</span>;
+judge = age &gt;= <span class="hljs-number">20</span> ? <span class="hljs-string">"Drinking OK"</span> : <span class="hljs-string">"No Drinking"</span>;
+<span class="hljs-built_in">console</span>.log(judge);
+</div></code></pre>
+<br>
+<div style="height:12px;">
+<span style="margin-left:8px; padding:6px 10px; background:lightgreen; color:black; font-weight:bold;border-radius:5px;-webkit-border-radius:5px;-moz-border-radius:5px;">演習 1-3</span>
+</div>
+<div style="border:2px solid lightgreen; padding:25px 12px 10px; font-size:0.85em;border-radius:5px;-webkit-border-radius:5px;-moz-border-radius:5px;">
+上記のコードを記述し、処理を実行しましょう。 <br>
+また、ageの値を変更し、もう一方の処理を実行させましょう。
+</div>
+<br>
+<hr>
+<p>本章はここまでです。<img class="emoji" alt="pencil2" src="data:image/png;base64,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" /> お疲れ様でした！</p>
+<p><br><br><br></p>
+<h1 id="2-%E7%B9%B0%E3%82%8A%E8%BF%94%E3%81%97%E6%96%87">2. 繰り返し文</h1>
+<p>プログラミングでは「1 回だけ処理を実行」という事は稀で、<br>
+「決められた回数」や「条件が続く間」など、処理を繰り返す事が多いです。<br>
+この章では、繰り返し文について学習していきましょう。</p>
+<br>
+<h2 id="%E2%97%86for-%E6%96%87">◆for 文</h2>
+<p>ループを作る文です。式を 3 つ指定し、その条件が満たされる間、処理が繰り返されます。
+<br></p>
+<pre class="hljs"><code><div><span class="hljs-keyword">for</span> (式<span class="hljs-number">1</span>; 式<span class="hljs-number">2</span>; 式<span class="hljs-number">3</span>) {
+  実行処理;
+}
+</div></code></pre>
+<p>式 1 には<mark>変数の宣言(初期化)</mark>、式 2 には<mark>ループが続く条件</mark>、式 3 には<mark>変数の処理</mark>が記述されます。<br>
+式 1 で宣言された変数が式 2 の条件を満たす間、式 3 と実行処理が繰り返されます。<br>
+実際にコードを記述して結果を見て行きましょう。
+<br></p>
+<pre class="hljs"><code><div><span class="hljs-keyword">for</span> (i = <span class="hljs-number">0</span>; i &lt;= <span class="hljs-number">10</span>; i++) {
+  <span class="hljs-built_in">console</span>.log(i);
+}
+</div></code></pre>
+<div style="height:12px;">
+<span style="margin-left:8px; padding:6px 10px; background:lightgreen; color:black; font-weight:bold;border-radius:5px;-webkit-border-radius:5px;-moz-border-radius:5px;">演習 2-1</span>
+</div>
+<div style="border:2px solid lightgreen; padding:25px 12px 10px; font-size:0.85em;border-radius:5px;-webkit-border-radius:5px;-moz-border-radius:5px;">
+上記のコードを Runstantで実行し、結果を確認しましょう。
+</div>
+<br>
+<h2 id="%E2%97%86while-%E6%96%87">◆while 文</h2>
+<p>while 文は、条件式が True を返す間、処理の実行をループします。</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">while</span> (条件式) {
+  実行処理;
+}
+</div></code></pre>
+<p><br><br></p>
+<p>コードの例を見てみましょう。</p>
+<pre class="hljs"><code><div>i = <span class="hljs-number">0</span>;
+<span class="hljs-keyword">while</span> (i &lt; <span class="hljs-number">6</span>) {
+  <span class="hljs-built_in">console</span>.log(i);
+  i++;
+}
+</div></code></pre>
+<br>
+<div style="height:12px;">
+<span style="margin-left:8px; padding:6px 10px; background:lightgreen; color:black; font-weight:bold;border-radius:5px;-webkit-border-radius:5px;-moz-border-radius:5px;">演習 2-2</span>
+</div>
+<div style="border:2px solid lightgreen; padding:25px 12px 10px; font-size:0.85em;border-radius:5px;-webkit-border-radius:5px;-moz-border-radius:5px;">
+上記のコードを Runstantで実行し、結果を確認しましょう。
+</div>
+<br>
+<p>条件が True の間は処理が止まらないため、無限ループに陥りやすいです。<br>
+コードを記述する際は注意しましょう。<br>
+(例えば上記のコードで i++ の記述を忘れると、無限ループします)
+<br></p>
+<p><br><br></p>
+<h2 id="%E2%97%86do-while-%E6%96%87">◆do while 文</h2>
+<p>do while 文は while 文と基本は同じですが、条件式との一致の評価が<br>
+最後にあるため、少なくとも 1 回は処理が実行される事になります。</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">do</span> {
+  実行処理;
+} <span class="hljs-keyword">while</span> (条件式);
+</div></code></pre>
+<p>コードの例を見てみましょう。</p>
+<pre class="hljs"><code><div>i = <span class="hljs-number">0</span>;
+<span class="hljs-keyword">do</span> {
+  <span class="hljs-built_in">console</span>.log(i);
+  i++;
+} <span class="hljs-keyword">while</span> (i &lt; <span class="hljs-number">6</span>);
+</div></code></pre>
+<div style="height:12px;">
+<span style="margin-left:8px; padding:6px 10px; background:lightgreen; color:black; font-weight:bold;border-radius:5px;-webkit-border-radius:5px;-moz-border-radius:5px;">演習 2-3</span>
+</div>
+<div style="border:2px solid lightgreen; padding:25px 12px 10px; font-size:0.85em;border-radius:5px;-webkit-border-radius:5px;-moz-border-radius:5px;">
+上記のコードを Runstantで実行し、結果を確認しましょう。
+</div>
+<p><br><br><br></p>
+<p>while と do while では、条件と違った時の挙動が変わります。<br>
+例えば、i の初期値と実行処理を少し変えた次のコードの結果を見てみましょう。
+<br></p>
+<pre class="hljs"><code><div>i = <span class="hljs-number">6</span>;
+
+<span class="hljs-keyword">while</span> (i &lt; <span class="hljs-number">6</span>) {
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"while"</span>);
+  i++;
+}
+
+<span class="hljs-keyword">do</span> {
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"do while"</span>);
+  i++;
+} <span class="hljs-keyword">while</span> (i &lt; <span class="hljs-number">6</span>);
+</div></code></pre>
+<p><br><hr></p>
+<p>本章はここまでです。<img class="emoji" alt="pencil2" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAQ2UlEQVR42u2bB1SU95rGJ7EQlaIgMDAgIEqQJgiKoBTpXQZRmqBiBCkWkBIFjUpRhFiQSAQpCggqVRAUsZuo8aa4Zs+9RnOzydqSa2L0GkOdZ9/vm08HYblzjnt3Ge/mPec5DJ8z883z+78NFd4f8Uf8Ea8VujzeeP0RI4S6I3mpKjxeLF1S+n9h3FaOp+8oPzZzmYryf6ZqqmG1+kQIFeQxZSTvPP2x+r+0ead33glP0+I/qTKciuOm01BtNBUf6k5CvLoKAhXlMXUk7wo9jc89/a1/GeMLebwxkSoTCssM9PGltQVu2Vjhi1kWaCYIhVP0kD1JgLXqqghkMoHHu6Chrh6lrKLSMXr0aOM33rxQQUFli7bgWru5MR7azUanix0eOdriho0FWs2M2Cwo0NfFFi0NrFJSxEJDAzi7uMLUzAyTtCc9GaeoGPLGmo+aMEEpe5LWny6am+KZgw16fd3Q6+eORw62+HL2DFywNKVSMEQJZcGuiSrYOM8eq5NSELAgEN7ePggODoGe3uRvNDQ0POjtRr1R5lPJ/HYdwZVLM0zxd/vZ6A0WonfNSvT6uOEBwbg9ZyY+nWGGZhMDVKhORElQAHaXlWN1YhLWrE3AgQMHEBi4ENOMjPCuoSHGjBkT8EaZ36k36fJlMviUMR8SgL68LPQsCcbvTnZ46mKPb+2scZUyo5nMn42Pxtl/v4W8PfnYuXMX6urqkZSUDFdXN6xbl4TY2DgoKyvfoLeeLPPmHXm8kXk62ucuWZjiJ6p5JuV7N29Ab0wkush4r7cbnrs64q+2M3FRg4/bm9LwDEDDiTZUVlahvPwgtm/LwdLI5Sgs3I8TJ1rh7u4BI8oEgvBvfD7fm24zQmYBrFGbGN0+3Qh/nTtLbDjIDz1BQnQ602OhF3rne+KJiwP+PFkXP3yQDia++eEHXL58BaWlZSgpKcXWrRkoP1iBCxcuIoZOf9GiIMyb5wRjYxO2JBQVFT1k9fTl8/V1v//TTHPcpdT/O6X7E6c5+IUe93g4k3kP9Ho640djQ/ySvRlMPO7sxg9376Kj4yzOnbvAGi8uOYCKykrk5OzAOiqF91asYMvh/ffXY/HicEycqPoXeXn5VTIHIGC8vP2hd6fgU0sz/MXWCrcY2VjiR2p6T5zt8JhgPDKZhifZW8BEJ+lvj37GybZ2fP/9XXxy5SpaWtuQmZWN+voGFB0oxsb0jQgj05QZrGbNsoanpyfMzKY/pVsayhQAvTFjAoun6KLBxBDt041xgSbAzdkWbMf/1noGbtHW90uW+OT7SD8/foyaI0fw4MEDPHr0CNevf0bdvwTf/cf3+Oyz6zhI2cBkwKGKSrYx+vj4sk2RnsOCUFBSvikvz1OTGQBGo3gW8aoqoiza7AqmEgia8ecsTajbm+C6lhbubRbXvIj0+++/49ixWjz48SFEdOH8xQusMQr2+2vXPsNuZirs2sP2hpUrY5CdvQ2ffHKFHsfCztED/k6GyAhVqVooQ03xbaNRoyoWKSkgTaDOrrnVtP620JZ3JioSjwH0cADa2trw8OFPYKK9vQN78vPxIp4+fYYTrSepHxxkr+fl7WTV3tGBD7ZkIOK9BKREeaA2RYC6JAF2hU88xEwfWYEwzmAkrzGEICRrqCOXNrxcF0cU1jWj+XQH7j94SKn+BZvyTFy6dBH5e/fiRTx//hzfffcdWgkQk/aNx5tRVFSMbdu3o/hAGVI3F2DH+nCcTtdEy3oBjiVpoWadADmLVUplKRPG6PN4Tf5yclhhboYVieuQtCEdFVWHcfHiJXz11U0wcePGTezbV4gX0d3djV9/fYKWlhY0k27fvoOOM2fY1G9oakVZ1TmU561BW4oq2glA6wZtNL6vTRAEOEIQtoWplFhays7KPNpCILjiT+vs0uUrkJa+iV10cnNycbzpBL65cwdVBKS/+R5Sc3Mz9YZjVAZPqQ9cR0HBPtz+9gd88eWvuHGzBKKvLXApnY+GRAHa0rVxgiA0EIQjBIEBsSNUpUwmIFhbW5uZms946ubhiffeW4GMjCwsp3melJSCM2fPoWh/ERn7Dv3jNJ02Y56Jzz//HNu376BmKQITf/upFYAzyZMgzEFHmvZLCGwmpGqzWVBD2hWuUmJszBs9rAC8vLz4tra2p+wdHGh5WQyhMABLly5DcXEJcnfmIYvSurW1jU1zanp02lfR2NAgLo2vb2LL1kwy3wtxfAaIHEhuAHxJ8yG6OQdn0yeJIRCAEwPKITNEpcTRcZgbIy0ss51dXO7NsraGl5c3kpNTkJWZjYCABYiLX40dO3JxlEbh1avX0NZ+Ekx8S1mRmbUNXZ3g4hpEffYkF4h6vEk+BIKB4IdeCQRJOXCZwCgnQrV02KdDeHi4moODw58JBKKiouHi4oz5/v4ICgrG2rWJlPJ1KC0rx+1v7uDB/fvYs2cvurpE/czbceZ9JOryBvp8xBBuiCHUSyBw5cBlQpBy2bBPBx8fnwhfX987RsbGsLS0hJubOxaHLcbu3Xtov9+ALRkZuEwLzoGSEjz7rftl2rMnP9j8S6GnH4SNr5ZDQ7+ekBeuOvwQFi5cqGRlNavB0NCQAcCutDG03QmFC2jOl5CKUXX4GK3B4pOH2Dypn/nufuYZdXoBVBaA71AQ2J5QQ9dyQpTLhx2Cn5+fgo2NzU1XV1e2KTpROaSnb6RMyMeyyBXIzq3CV1/sB+BCciXTvoPNc8YlkkAQMRDSGAiagzKB2xPKhr0n+Pr6h3h4eFwzNTXDoqAgpBEAL29feAUsx/qVQjxqnMoB8JecfjepaygAnmL1eHEQxCOycQgImaHKpVG0Jwx3OUyysbH9zdfXD9bWNrCx90ZsmBNOpqqjaZUa7teaACIv8bjrkWpeom4Wwsvp0JhA2yLBaJFAYMshl9ZmS94wQxAKhQ5UDi26+tMQ4mWOs5u0aL0VoIGZ43EauFdnykHwZdJfuvnnHmL1eIohfMWUAxl/AWF9Pwh0j+1ByqXDvjHStqgY6DWzoD5JQ9SWJsCJ9eIPWs9C4OMBA6GPMeQHdEkzz+k3EgMLlDkMhA3UEwZkApMFh+kakwkysTY3parF1KVq9TUyADg1JhOEWILQaPryVDkIQ5nnAHDqJhGE3i/F06HxlUzQYiFUrtZERrByObsxDnccTdCMZyA00TrbvJ4VlQMHoa4/BKnmSe7AM1LnCwi24mWJg8C8d12yFgvgULwmNUZuWRruOLZOM7Y+RUvU+N9CmP7yVFkIz0lDmWcBDIBwg4EgKQcCzfaDsngNHCJtXTThoEz8pUrNWn5MPdXpKxCoHGqoJ9xnIZBxEdMQpZkfCMFbnAkb2Uxgx2N9ijaq1miiNJYgrKJMCBxf4unJkxt2CHQyK+nDDYYQy0Aw5TKBgSDVPMlNrE539jV9BOEMma+jHtDE/fTImC+jyVNBmRDrp7mZJwtxNFEQQ+XwCoQ6djpo4m4tB6GPIDwf2jwHQKIu+l7EQaCN8dhaAeroHsxEqE7gY/NiHTjPEtzS1eW9IxsQmHJIHtATkqmDE4T7DIQuD/Gu8FyaeU5PSc/Z19CItMVp6gXV1AjrE/n4OE4PkQGm8LbXE800VbXnyUocXsOPpVNi5jelLImBsI6D0MBAcBdD+E2qeU5cOfQRhOs21BNoJ1irjfQVs7A6zAoh3oaYa87P4clSHEnUjKtN0epr4JojicpBC9WxGgRhujgDehgIUs2TXIEnJOaxyA3PzlohK242MtY4IT16DpYHmsHVVosrAxmKqgR+fF2yQNTwfn8IAlQxEOrMxJnQ40kQpJhn9Jj0zBn4cR6O7vZEfpoPCtLcsSV+LtZEzITQWV9WymDwiKR/DHk1ExIJQgxfDKFzIIRB5jmR+Z/n4fSBQFTmBOHQdn/s2+SJD993w4aoOYiYbwR7S808GbMvaYzMFjegHAiCBu6xEMhsn8fQ5jtd0PfIAZcPh6CxYCnqCoJxZFcgyrYJsTfdA1tXzUVcmCU87XRvaWnxxsgkhJpEgpCiPQACNTPaE+4d4zKhy5OD4Cqp+y5nMu+Iy1VBaC+KQkfZUhzfH0YAAnBwmx8KN7kjL8UFaSvnIsjdgMpgogNPVqM6QWPli+nQyIE4to4gsJnAQehmMsFVrG5nguCEa8cicP5QPM5XLUdbUSjq9gTiyE4hqvOEqNghRHG2PzLXOiJqkTkcrAQ7eRQyDaGWK4cXqk1kMkGDywQ3MYReF7bpfXokDB0lK3GuLAKnikJwfF8wmveHoqU4HM3FS9hyKM/2wZ4NbkiLcYC3g+4dM3XeOJmGUMPsCUmaolcgJNDazE6H6UCfM0FwwblDC9H80VJ0lIajvSyCtBRtpUvQWrwYrUVhaCYYTR8tQuO+MFTuCkJmojNCvQxgw5SBrEfVKrUY2hVEzF5fS2K+VtN6ezROFfeazHCqPJDqfBlOlS7FyYNM3VMDJLPM6Z8sicDZQ5G4cDgK56ujWSAV23yxI9EecSHmcLbR2s17E6IsWi22LJYvKo/XZH+4qVmtjooEXexMcUVJTihqPlyEqlwhjuwORO3eEIIQjhYGQHEYThWH4nRpKNoKF+F4vhC1u4T4eKMbNsfbIdDN4FuuDGQ/PopSjf84Sr3vYJwa8mP0sWmVE7KSaL6numDfBx4oz1lAEqJsux8qSY0Fi9BOZXC+YhkuVi/Hp0ejSNE4UxFJ/SAEhVt9EBNqiTmW/Hm8NyV2LlaJXxWg0xngPg3RwVZYHToD6bF2yExwRuYaO+QlzUNRph9q9gShqZDq/0A4nX4ElUAkrhCAq7XRuHgkiq5H4BBNhc2rHWkn0MvnvUlhoKtgaKirsH6miep519na3SE+xljmb4SECCtsXeuMnevdUZDuhtIML1Tn+qNp7wKc+jiYNsNQdBQH0ZhcwvaEho9CsXejF5b4m90zNx8/nvcmhp7WODPTyUqp1saqlz3sdLsjA82xKswCH8TNwYfJzija6sXuAA35AWgrDiEIYThZGIhzlZE4SU2zMm8BMmgvMNRTduP9D+MtiSTXpOqfGFMF48xN352QOteCf13oNLkrNtgc2etcqdbnoyJ3Aap2+FNfWIiWfYE4TaPyTOV7NCGWYt2SmZCTG9km5b/oSjX19mBJrr/G60ivDfDtKTpjLUymKK13nql5PczHqGdDLPUHyohiyoiaHfOpByzG9fpoAhMIU2NDKCoqgV4XKMX4oA88op9GDtCof6CRUjSiv14LkiRGMJlhYTB+i5uN1tXohWbIWGNPozIY+7OEmKyvA2OT6bCysgL9BsvX9HyFIU98kHGJ0dEkOU7vcBrDaSyncZzkhxT3HMlruPeQvKccdy+SBOQgUENnyAhDHQVbO0uND11t9a4rjVeCvIIS1NXUYW5uDh0dHSYLUoYAINX8GFacSY6kImk8J2WSCmkiSZWkzolP0iBpkgSctP6BBCRNTnxO6tx7TuTuM4G7pyL3OeRfApWAHEeKHTVq1B0FBQWoq6vD0JApBcUHdF3nNQBwp86d9gAAE0jKA8zzGROcKW3upnokfdIUkgHpXdI0kjHJhGRGmk4yJ1mQZnCyfEWS6xbc881IpiQjkiHJgLuHHvecXWPHjv1FTU0N9Os7oO8dGM+vUQYDYXAZMTgrlCRgSIOzQ22I7HgBaxIHTJcRZ2QyC08CcGo/GbCSfD+FpM+9Ro97r7mUDTVycnLJnIe3BpWCFBDSmyEB6g/qn6jR0iX5DJKvQzRoro+89jh8TUnv/BJJnwgyEG/9n+l/Mf4LfFEHyeXxVc8AAAAASUVORK5CYII=" /> お疲れ様でした！</p>
+<p><br><br><br></p>
+<h1 id="3-%E6%A7%8B%E6%96%87%E3%81%AE%E7%B5%84%E3%81%BF%E5%90%88%E3%82%8F%E3%81%9B">3. 構文の組み合わせ</h1>
+<p>これまで学習した 条件分岐や繰り返し文を組み合わせる事で、<br>
+さまざまな実行処理を記述できます。<br>
+この章ではコード演習を中心に、構文の組み合わせを学習しましょう。</p>
+<br>
+<h2 id="%E2%97%86-%E5%A5%87%E6%95%B0%E3%83%BB%E5%81%B6%E6%95%B0%E5%88%A4%E5%AE%9A">◆ 奇数・偶数判定</h2>
+<br>
+<div style="height:12px;">
+<span style="margin-left:8px; padding:6px 10px; background:lightgreen; color:black; font-weight:bold;border-radius:5px;-webkit-border-radius:5px;-moz-border-radius:5px;">演習 3-1</span>
+</div>
+<div style="border:2px solid lightgreen; padding:25px 12px 10px; font-size:0.85em;border-radius:5px;-webkit-border-radius:5px;-moz-border-radius:5px;">
+指定された値が奇数か偶数かを判別するコードを記述しましょう。<br>
+(条件) 結果は「奇数です」「偶数です」で出力する事  ※「」は不要です <br>
+</div>
+<p><br><br><br><br></p>
+<p>ヒント 1</p>
+<blockquote>
+<p>・判別対象の 値は number</mark>に格納します。<br>
+・奇数か偶数の判定は剰余算(%)</mark>を利用します。<br>
+・判定結果の場合分けは if 文</mark>を利用します。<br>
+・出力は console.log</mark>で記述します。</p>
+</blockquote>
+<p><br><br><br></p>
+<p>ヒント 2</p>
+<blockquote>
+<p>・奇数は「2 で割ると 1 余る」</mark>で記述可能です<br>
+・奇数以外は全て偶数のため、場合分けは 1 回</mark>でよいです。<br>
+・console.log の中身は 文字列型</mark>で記述します。<br></p>
+</blockquote>
+<p><br><br><br></p>
+<p>ヒント 3</p>
+<blockquote>
+<p>number = (任意の数値); //number の宣言及び格納 <br>
+if (number % 2 == 1) //奇数の判別 <br>
+console.log(&quot;奇数です&quot;); //奇数の場合の出力 <br></p>
+</blockquote>
+<p><br><br></p>
+<h2 id="%E2%97%86-%E5%90%88%E8%A8%88%E5%80%A4%E3%81%AE%E5%87%BA%E5%8A%9B">◆ 合計値の出力</h2>
+<br>
+<div style="height:12px;">
+<span style="margin-left:8px; padding:6px 10px; background:lightgreen; color:black; font-weight:bold;border-radius:5px;-webkit-border-radius:5px;-moz-border-radius:5px;">演習 3-2</span>
+</div>
+<div style="border:2px solid lightgreen; padding:25px 12px 10px; font-size:0.85em;border-radius:5px;-webkit-border-radius:5px;-moz-border-radius:5px;">
+1から10までの合計値を出力するコードを記述しましょう。<br>
+(条件) 出力結果は「合計値：〇〇」で出力する事 <br>
+</div>
+<p><br><br><br></p>
+<p>ヒント 1</p>
+<blockquote>
+<p>・「1 から 10 まで」は for 文</mark>で指定します。<br>
+・合計値は、変数 sum</mark> に格納します。<br>
+・出力は console.log</mark>で記述します。</p>
+</blockquote>
+<p><br><br><br></p>
+<p>ヒント 2</p>
+<blockquote>
+<p>・for 文の式は i=1、i&lt;=10、i++</mark> で記述します。<br>
+・合計値は、sum と i を足した値</mark>を格納します。<br>
+・「合計値：」は文字列</mark>、〇〇の部分は 変数</mark>を指定します。<br></p>
+</blockquote>
+<p><br><br><br></p>
+<p>ヒント 3</p>
+<blockquote>
+<p>sum =0; //sum の初期化 <br>
+for (i=1; i&lt;=10; i++) //1 から 10 まで <br>
+sum = sum + i; //sum に i との合計値を格納 <br>
+console.log(&quot;合計値：&quot; + sum); //指定文を出力 <br></p>
+</blockquote>
+<p><br><br><br></p>
+<h2 id="%E2%97%86-%E5%80%A4%E3%81%AE%E6%8A%BD%E5%87%BA">◆ 値の抽出</h2>
+<br>
+<div style="height:12px;">
+<span style="margin-left:8px; padding:6px 10px; background:lightgreen; color:black; font-weight:bold;border-radius:5px;-webkit-border-radius:5px;-moz-border-radius:5px;">演習 3-3</span>
+</div>
+<div style="border:2px solid lightgreen; padding:25px 12px 10px; font-size:0.85em;border-radius:5px;-webkit-border-radius:5px;-moz-border-radius:5px;">
+1から100までの値で、7の倍数を全て表示しましょう。
+</div>
+<p><br><br><br><br></p>
+<p>ヒント 1</p>
+<blockquote>
+<p>・「1 から 100 まで」は for 文</mark>で指定します。<br>
+・7 の倍数は剰余算(%)</mark>で記述可能です<br>
+・7 の倍数の場合分けは、if 文</mark>を記述します。<br></p>
+</blockquote>
+<p><br><br></p>
+<p>ヒント 2</p>
+<blockquote>
+<p>・for 文の式の中に、if 文の式を記述します。<br>
+・if 文の条件式に、剰余算の判定式を記述します。<br></p>
+</blockquote>
+<p><br><br></p>
+<p>ヒント 3</p>
+<blockquote>
+<p>for (i=1; i&lt;=10; i++) //1 から 100 まで <br>
+if (i % 7 === 0); //i が 7 の倍数の時に処理を実行<br>
+console.log(i); //値の出力 <br></p>
+</blockquote>
+<p><br><br><br></p>
+<h3 id="3-1-%E5%9B%9E%E7%AD%94%E4%BE%8B">3-1 回答例</h3>
+<img src="2-3-1.png">
+<p><br><br><br></p>
+<h3 id="3-2-%E5%9B%9E%E7%AD%94%E4%BE%8B">3-2 回答例</h3>
+<img src="2-3-2.png">
+<p><br><br><br></p>
+<h3 id="3-3-%E5%9B%9E%E7%AD%94%E4%BE%8B">3-3 回答例</h3>
+<img src="2-3-3.png">
+<p><br><br><br></p>
+<p><br><hr></p>
+<p>本章はここまでです。<img class="emoji" alt="pencil2" src="data:image/png;base64,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" /> お疲れ様でした！</p>
+<p><br><br><br></p>
+<h1 id="4-%E9%85%8D%E5%88%97">4. 配列</h1>
+<h2 id="%E2%97%86-%E9%85%8D%E5%88%97%E3%81%A8%E3%81%AF">◆ 配列とは</h2>
+<p>値に順序をつけ、並べて格納したデータを<mark>配列</mark>と言います。格納された値を<mark>要素</mark>、要素の位置を<br>
+<mark>インデックス(添字)</mark>と呼びます。また、配列は変数に格納する事ができます。</p>
+<img src="array.png">
+<p>上図は変数 fruits に対し、4 つの要素が格納された状態を示しています。fruits 要素のインデックスは、<br>
+[] に数値を入れて指定できます。ここで注意するのは、インデックスの<mark>1 番目が[0]</mark>で表されている点です。<br>
+配列の決まり事ですので、「インデックスの初めは 0 から始まる」と覚えましょう。
+<br></p>
+<h2 id="%E2%97%86-%E9%85%8D%E5%88%97%E3%81%AE%E4%BD%9C%E6%88%90">◆ 配列の作成</h2>
+<p>配列を変数に格納する際は、主に以下の方法で記述します。</p>
+<pre class="hljs"><code><div>fruits = [<span class="hljs-string">"Apple"</span>, <span class="hljs-string">"Orange"</span>, <span class="hljs-string">"Banana"</span>, <span class="hljs-string">"Peach"</span>];
+</div></code></pre>
+<p>この時、要素が文字列型であれば<mark>' '</mark> や <mark>&quot; &quot;</mark> で囲みます。また要素毎に <mark>,</mark> で区切る事に注意しましょう。
+<br></p>
+<p>格納した配列は、インデックス番号を指定する事で出力出来ます。</p>
+<pre class="hljs"><code><div><span class="hljs-built_in">console</span>.log(fruits[<span class="hljs-number">0</span>]);
+</div></code></pre>
+<br>
+<div style="height:12px;">
+<span style="margin-left:8px; padding:6px 10px; background:lightgreen; color:black; font-weight:bold;border-radius:5px;-webkit-border-radius:5px;-moz-border-radius:5px;">演習 4-1</span>
+</div>
+<div style="border:2px solid lightgreen; padding:25px 12px 10px; font-size:0.85em;border-radius:5px;-webkit-border-radius:5px;-moz-border-radius:5px;">
+任意の変数に [トマト、にんじん、じゃがいも、たまねぎ] を格納し、「じゃがいも」を出力しましょう。<br>
+※ 変数の命名は以下のサイトを利用すると便利です。 (回答例は次のページにあります)<br>
+<blockquote>
+<p><a href="https://codic.jp/engine" target="_blank">codic</a></p>
+</blockquote>
+</div>
+<br>
+<p>回答例 <br></p>
+<img src="2-4-1.png">
+<p><br><br></p>
+<h2 id="%E2%97%86-%E8%A6%81%E7%B4%A0%E3%81%AE%E8%BF%BD%E5%8A%A0%E5%A4%89%E6%9B%B4%E5%89%8A%E9%99%A4">◆ 要素の追加、変更、削除</h2>
+<p>以下の記述で、配列に対して要素を追加・変更・削除する事が可能です。
+<br></p>
+<pre class="hljs"><code><div><span class="hljs-comment">//追加</span>
+numbers = [<span class="hljs-string">"One"</span>, <span class="hljs-string">"Two"</span>, <span class="hljs-string">"Three"</span>, <span class="hljs-string">"Four"</span>];
+numbers[<span class="hljs-number">4</span>] = <span class="hljs-string">"Five"</span>;
+<span class="hljs-built_in">console</span>.log(numbers);
+</div></code></pre>
+<pre class="hljs"><code><div><span class="hljs-comment">//変更</span>
+numbers = [<span class="hljs-string">"One"</span>, <span class="hljs-string">"Two"</span>, <span class="hljs-string">"Three"</span>, <span class="hljs-string">"Four"</span>];
+numbers[<span class="hljs-number">3</span>] = <span class="hljs-number">4</span>;
+<span class="hljs-built_in">console</span>.log(numbers);
+</div></code></pre>
+<pre class="hljs"><code><div><span class="hljs-comment">//削除</span>
+numbers = [<span class="hljs-string">"One"</span>, <span class="hljs-string">"Two"</span>, <span class="hljs-string">"Three"</span>, <span class="hljs-string">"Four"</span>];
+numbers = [];
+<span class="hljs-built_in">console</span>.log(numbers);
+</div></code></pre>
+<br>
+<div style="height:12px;">
+<span style="margin-left:8px; padding:6px 10px; background:lightgreen; color:black; font-weight:bold;border-radius:5px;-webkit-border-radius:5px;-moz-border-radius:5px;">演習 4-2</span>
+</div>
+<div style="border:2px solid lightgreen; padding:25px 12px 10px; font-size:0.85em;border-radius:5px;-webkit-border-radius:5px;-moz-border-radius:5px;">
+上記のコードを記述し、結果を確認しましょう。
+</div>
+<p><br><br><br></p>
+<h2 id="%E2%97%86-%E3%83%97%E3%83%AD%E3%83%91%E3%83%86%E3%82%A3%E3%81%A8%E3%83%A1%E3%82%BD%E3%83%83%E3%83%89%E3%81%AE%E4%BD%BF%E3%81%84%E6%96%B9">◆ プロパティとメソッドの使い方</h2>
+<p>配列が格納された変数に対し、<mark>.プロパティ名</mark> または <mark>.メソッド名</mark>を記述する事で、<br>
+値の取得や要素の変更が可能です(一部例外あり) 。それでは以下のコード例を確認しましょう。</p>
+<br>
+<p>データの取得</p>
+<pre class="hljs"><code><div><span class="hljs-comment">//配列の長さを取得する &lt;length&gt;</span>
+fruits = [<span class="hljs-string">"Apple"</span>, <span class="hljs-string">"Orange"</span>, <span class="hljs-string">"Bnana"</span>, <span class="hljs-string">"Peach"</span>];
+<span class="hljs-built_in">console</span>.log(fruits.length);
+</div></code></pre>
+<pre class="hljs"><code><div><span class="hljs-comment">//すべてのキーを取得する Object.keys</span>
+fruits = [<span class="hljs-string">"Apple"</span>, <span class="hljs-string">"Orange"</span>, <span class="hljs-string">"Bnana"</span>, <span class="hljs-string">"Peach"</span>];
+<span class="hljs-built_in">console</span>.log(<span class="hljs-built_in">Object</span>.keys(fruits));
+</div></code></pre>
+<pre class="hljs"><code><div><span class="hljs-comment">//すべての値を取得する Object.values</span>
+fruits = [<span class="hljs-string">"Apple"</span>, <span class="hljs-string">"Orange"</span>, <span class="hljs-string">"Bnana"</span>, <span class="hljs-string">"Peach"</span>];
+<span class="hljs-built_in">console</span>.log(<span class="hljs-built_in">Object</span>.values(fruits));
+</div></code></pre>
+<pre class="hljs"><code><div><span class="hljs-comment">//すべてのキーと値を取得する Object.entries</span>
+fruits = [<span class="hljs-string">"Apple"</span>, <span class="hljs-string">"Orange"</span>, <span class="hljs-string">"Bnana"</span>, <span class="hljs-string">"Peach"</span>];
+<span class="hljs-built_in">console</span>.log(<span class="hljs-built_in">Object</span>.entries(fruits));
+</div></code></pre>
+<pre class="hljs"><code><div><span class="hljs-comment">//配列かどうかを判断する isArray</span>
+fruits = [<span class="hljs-string">"Apple"</span>, <span class="hljs-string">"Orange"</span>, <span class="hljs-string">"Bnana"</span>, <span class="hljs-string">"Peach"</span>];
+fruit = <span class="hljs-string">"Kiwi"</span>;
+<span class="hljs-built_in">console</span>.log(<span class="hljs-built_in">Array</span>.isArray(fruits));
+<span class="hljs-built_in">console</span>.log(<span class="hljs-built_in">Array</span>.isArray(fruit));
+</div></code></pre>
+<br>
+<div style="height:12px;">
+<span style="margin-left:8px; padding:6px 10px; background:lightgreen; color:black; font-weight:bold;border-radius:5px;-webkit-border-radius:5px;-moz-border-radius:5px;">演習 4-3</span>
+</div>
+<div style="border:2px solid lightgreen; padding:25px 12px 10px; font-size:0.85em;border-radius:5px;-webkit-border-radius:5px;-moz-border-radius:5px;">
+上記のコードを記述し、結果を確認しましょう。
+</div>
+<p><br><br><br></p>
+<p>データの加工</p>
+<pre class="hljs"><code><div><span class="hljs-comment">//先頭の要素を削除する shift</span>
+vegetables = [<span class="hljs-string">"Carrot"</span>, <span class="hljs-string">"Onion"</span>, <span class="hljs-string">"Potato"</span>, <span class="hljs-string">"Pumpkin"</span>];
+vegetables.shift();
+<span class="hljs-built_in">console</span>.log(vegetables);
+</div></code></pre>
+<pre class="hljs"><code><div><span class="hljs-comment">//末尾の要素を削除する pop</span>
+vegetables = [<span class="hljs-string">"Carrot"</span>, <span class="hljs-string">"Onion"</span>, <span class="hljs-string">"Potato"</span>, <span class="hljs-string">"Pumpkin"</span>];
+vegetables.pop();
+<span class="hljs-built_in">console</span>.log(vegetables);
+</div></code></pre>
+<pre class="hljs"><code><div><span class="hljs-comment">//先頭に要素を追加する unshift</span>
+vegetables = [<span class="hljs-string">"Carrot"</span>, <span class="hljs-string">"Onion"</span>, <span class="hljs-string">"Potato"</span>, <span class="hljs-string">"Pumpkin"</span>];
+vegetables.unshift();
+<span class="hljs-built_in">console</span>.log(vegetables);
+</div></code></pre>
+<pre class="hljs"><code><div><span class="hljs-comment">//末尾に要素を追加する push</span>
+vegetables = [<span class="hljs-string">"Carrot"</span>, <span class="hljs-string">"Onion"</span>, <span class="hljs-string">"Potato"</span>, <span class="hljs-string">"Pumpkin"</span>];
+vegetables.push(<span class="hljs-string">"Eggplant"</span>);
+<span class="hljs-built_in">console</span>.log(vegetables);
+</div></code></pre>
+<br>
+<div style="height:12px;">
+<span style="margin-left:8px; padding:6px 10px; background:lightgreen; color:black; font-weight:bold;border-radius:5px;-webkit-border-radius:5px;-moz-border-radius:5px;">演習 4-4</span>
+</div>
+<div style="border:2px solid lightgreen; padding:25px 12px 10px; font-size:0.85em;border-radius:5px;-webkit-border-radius:5px;-moz-border-radius:5px;">
+上記のコードを記述し、結果を確認しましょう。
+</div>
+<p><br><br><br></p>
+<p>[配列の変更]</p>
+<pre class="hljs"><code><div><span class="hljs-comment">//反対に並び替える reverse</span>
+numbers = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>];
+numbers.reverse();
+<span class="hljs-built_in">console</span>.log(numbers);
+</div></code></pre>
+<pre class="hljs"><code><div><span class="hljs-comment">//配列を連結する concat</span>
+numbers_1 = [<span class="hljs-number">0</span>, <span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>];
+numbers_2 = [<span class="hljs-number">9</span>, <span class="hljs-number">8</span>, <span class="hljs-number">7</span>, <span class="hljs-number">6</span>, <span class="hljs-number">5</span>];
+numbers = numbers_1.concat(numbers_2);
+<span class="hljs-built_in">console</span>.log(numbers);
+
+<span class="hljs-comment">//昇順に並び替える sort</span>
+numbers.sort();
+<span class="hljs-built_in">console</span>.log(numbers);
+</div></code></pre>
+<pre class="hljs"><code><div><span class="hljs-comment">//昇順に並び替える(その他) sort</span>
+alphabet = [<span class="hljs-string">"c"</span>, <span class="hljs-string">"e"</span>, <span class="hljs-string">"a"</span>, <span class="hljs-string">"b"</span>, <span class="hljs-string">"d"</span>];
+alphabet.sort();
+<span class="hljs-built_in">console</span>.log(alphabet);
+
+numbers = [<span class="hljs-number">21</span>, <span class="hljs-number">9</span>, <span class="hljs-number">1</span>, <span class="hljs-number">5</span>, <span class="hljs-number">68</span>];
+numbers.sort();
+<span class="hljs-built_in">console</span>.log(numbers);
+</div></code></pre>
+<br>
+<div style="height:12px;">
+<span style="margin-left:8px; padding:6px 10px; background:lightgreen; color:black; font-weight:bold;border-radius:5px;-webkit-border-radius:5px;-moz-border-radius:5px;">演習 4-5</span>
+</div>
+<div style="border:2px solid lightgreen; padding:25px 12px 10px; font-size:0.85em;border-radius:5px;-webkit-border-radius:5px;-moz-border-radius:5px;">
+上記のコードを記述し、結果を確認しましょう。
+</div>
+<br>
+<p>配列のプロパティ及びメソッドは他にもたくさんあります。<br>
+その都度必要な記述方法を調べ、少しずつ慣れていきましょう。</p>
+<p><br><br><br></p>
+<h2 id="%E2%97%86-%E3%83%97%E3%83%AD%E3%83%91%E3%83%86%E3%82%A3%E3%83%A1%E3%82%BD%E3%83%83%E3%83%89%E3%82%AA%E3%83%96%E3%82%B8%E3%82%A7%E3%82%AF%E3%83%88">◆ プロパティ、メソッド、オブジェクト</h2>
+<p>上記のコード演習では、Array オブジェクトのプロパティとメソッドを学習しました。<br>
+ここでは、<mark>オブジェクト</mark>、<mark>プロパティ</mark>、<mark>メソッド</mark>について、改めて学習しましょう。
+<br><br></p>
+<h3 id="%E2%97%8F-%E3%82%AA%E3%83%96%E3%82%B8%E3%82%A7%E3%82%AF%E3%83%88">● オブジェクト</h3>
+<p>プロパティの集合体を指し、プログラム上で「モノ」を表現しています。</p>
+<img src="object.png">
+<br>
+<h3 id="%E2%97%8F-%E3%83%97%E3%83%AD%E3%83%91%E3%83%86%E3%82%A3">● プロパティ</h3>
+<p>名前(キー)と値がセットになったデータを指し、オブジェクトの状態や属性を表します。<br>
+値には 文字、数値、論理値、配列、関数を設定できます。</p>
+<img src="property.png">
+<br>
+<h3 id="%E2%97%8F-%E3%83%A1%E3%82%BD%E3%83%83%E3%83%89">● メソッド</h3>
+<p>プロパティの一部。「キーと値」の中で、値が関数になっているもので、<br>
+特定のデータ型に関連付けられています。</p>
+<p><br><br><br></p>
+<p>例を挙げて説明します。<br>
+「りんご」をオブジェクト(モノ)とした時、そのプロパティ(状態・属性)は次のように表せられます。</p>
+<blockquote>
+<p>category：fruit <br>
+color：red<br>
+weight:100g<br>
+structure：['peel', 'pulp', 'seed', 'juice']<br></p>
+</blockquote>
+<p>データ上の「りんご」は、種類や色などの情報で表現できるため、<br>
+オブジェクトとは「プロパティの集まり」であると言えます。
+<br></p>
+<img src="apple.png">
+<p>また、りんごに対して「皮をむく」というメソッドが実行されれば、<br>
+「配列 structure から、peel 要素が削除される」 と考える事が出来ます。</p>
+<h3 id="%E2%97%8F-%E9%80%A3%E6%83%B3%E9%85%8D%E5%88%97">● 連想配列</h3>
+<p>次回の予習となりますが、第 3 回 JavaScript では<mark>連想配列</mark>を学習します。<br>
+これは、プロパティのキーと値を並べた配列で、オブジェクトとして理解しやすいです。</p>
+<p>上記の「りんご」の例は、以下の様に記述します。</p>
+<pre class="hljs"><code><div>apple = {
+  <span class="hljs-attr">category</span>: <span class="hljs-string">"fruit"</span>,
+  <span class="hljs-attr">color</span>: <span class="hljs-string">"red"</span>,
+  <span class="hljs-attr">weight</span>: <span class="hljs-string">"100"</span>,
+  <span class="hljs-attr">structure</span>: [<span class="hljs-string">"peel"</span>, <span class="hljs-string">"pulp"</span>, <span class="hljs-string">"seed"</span>, <span class="hljs-string">"juice"</span>],
+};
+
+<span class="hljs-built_in">console</span>.log(apple[<span class="hljs-string">"structure"</span>]);
+</div></code></pre>
+<p>上記のコードは、オブジェクト apple に対し、各プロパティが配列になっている状態です。<br>
+連想配列はよく用いられますので、おおよその内容を頭に入れておきましょう。
+<br></p>
+<hr>
+<p>本章はここまでです。今回も新しい内容がたくさん出て来ましたが、<br>
+1 つずつ理解していきましょう。<img class="emoji" alt="pencil2" src="data:image/png;base64,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" /> お疲れ様でした！</p>
+<p><a href="https://masashi-m.github.io/text_htmlcss_03/">JavaScript 学習テキスト(3)へ</a></p>
+
+</body>
+</html>
